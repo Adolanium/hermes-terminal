@@ -96,9 +96,7 @@ Then **Ctrl+K** → **Reload desktop plugins**. A load error also raises a toast
 
 ## The TUI, not a local shell
 
-When you open TUI, the plugin mints a WebSocket ticket for the current connection, rewrites it from `/api/ws` to `/api/pty`, and paints `hermes --tui` with xterm.js.
-
-This is the TUI, not the old CLI. `/api/pty` always spawns `hermes --tui`. There is no stock remote CLI PTY. The plugin does not type `hermes --tui` into this machine's shell. That would miss the point of a remote gateway. `openSessionInTerminal` (the OS terminal) is local-only and is not used here.
+When you open TUI, the plugin mints a WebSocket ticket for the current connection, rewrites it from `/api/ws` to `/api/pty`, and paints `hermes --tui` with xterm.js. Nothing runs in this machine's shell. See [Limits](#limits) for what that rules out.
 
 ## How the connection works
 
