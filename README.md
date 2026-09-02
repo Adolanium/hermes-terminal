@@ -17,6 +17,9 @@
 
   [Explore the product](#tui-in-a-workspace-tab) &nbsp;·&nbsp; [Install it](#make-it-yours) &nbsp;·&nbsp; [Understand the connection](#how-the-connection-works)
 
+  <img width="1459" height="889" alt="demo" src="https://github.com/user-attachments/assets/3790f760-7836-41ce-a0a0-a2b9ee4d4124" />
+
+
 </div>
 
 ## Powered by Hermes
