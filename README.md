@@ -42,6 +42,16 @@ It is a tab and not a route page on purpose. On a remote gateway cold start the 
 
 ## Same gateway. Same sessions.
 
+New TUI sessions start in the active Desktop workspace directory. The **New**
+button captures the workspace selected at that moment. Reconnecting keeps the
+original directory, and resuming a saved session keeps that session's directory.
+With no workspace selected, the gateway's default behavior is unchanged.
+
+This requires a gateway build containing
+[Hermes Agent #117834](https://github.com/NousResearch/hermes-agent/pull/117834).
+For remote connections, update Hermes on the remote machine too; the directory
+is interpreted on that machine. Older gateways may ignore the directory option.
+
 Hermes Terminal keeps the TUI on the gateway you are already using, then stays out of the way:
 
 - Hide the session rail from the header when you want the TUI full width.

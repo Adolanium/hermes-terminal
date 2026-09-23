@@ -418,6 +418,15 @@ function connectionKey(connectionId, profile) {
   return String(connectionId || 'local') + '\0' + String(profile || 'default')
 }
 
+function newPtyLaunch(connectionId, profile) {
+  const state = host.state && host.state.cwd
+  const cwd = state && typeof state.get === 'function' ? state.get() : null
+  return {
+    key: connectionKey(connectionId, profile),
+    cwd: typeof cwd === 'string' && cwd.trim() ? cwd : undefined
+  }
+}
+
 async function mintPtyUrl(opts) {
   const desktop = typeof window === 'undefined' ? null : window.hermesDesktop
   if (!desktop || typeof desktop.getGatewayWsUrl !== 'function') {
@@ -443,6 +452,9 @@ async function mintPtyUrl(opts) {
   }
   if (profile) params.profile = profile
   if (opts.resume) params.resume = opts.resume
+  // A resumed session owns its directory. Fresh sessions and their retries
+  // carry the workspace captured when that terminal was opened.
+  params.cwd = opts.resume ? undefined : opts.cwd
   if (opts.fresh) params.fresh = '1'
   return toPtyUrl(wsUrl, params)
 }
@@ -604,6 +616,8 @@ function PluginPageContent() {
   // Opening the page starts a new TUI, same as the New button. Resume is
   // explicit: a click on a session row flips this off for that dial.
   const freshRef = useRef(true)
+  const launchRef = useRef(null)
+  if (!launchRef.current) launchRef.current = newPtyLaunch(connectionId, profile)
   const [hostEl, setHostEl] = useState(null)
   const [status, setStatus] = useState('boot')
   const [error, setError] = useState('')
@@ -781,6 +795,9 @@ function PluginPageContent() {
       setStatus('connecting')
       setError('')
       const key = connectionKey(connectionId, profile)
+      if (launchRef.current.key !== key) {
+        launchRef.current = newPtyLaunch(connectionId, profile)
+      }
       let url
       try {
         const fresh = freshRef.current
@@ -794,6 +811,7 @@ function PluginPageContent() {
             profile,
             resume: fresh ? undefined : resumeRef.current || undefined,
             attach: attachToken(key, fresh),
+            cwd: launchRef.current.cwd,
             fresh
           }),
           MINT_TIMEOUT_MS,
@@ -995,6 +1013,7 @@ function PluginPageContent() {
     trace('user: ' + (fresh ? 'new session' : 'resume ' + resume))
     attachToken(connectionKey(connectionId, profile), true)
     freshRef.current = !!fresh
+    launchRef.current = newPtyLaunch(connectionId, profile)
     setResumeId(resume || '')
     setTermEpoch(n => n + 1)
   }

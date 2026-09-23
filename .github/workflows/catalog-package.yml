@@ -14,3 +14,4 @@ jobs:
       - run: python -m unittest test_catalog_policy.py
       - run: python -m py_compile catalog/__init__.py
       - run: node --check catalog/desktop/plugin.js
+      - run: node --test test_project_directory.cjs
