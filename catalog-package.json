@@ -1,6 +1,6 @@
 {
   "name": "hermes-terminal",
-  "version": "0.0.3.post2",
+  "version": "0.0.4",
   "description": "Run the Hermes terminal interface in a Hermes Desktop workspace tab.",
   "updater": "shared",
   "companions": []
