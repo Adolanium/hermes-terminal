@@ -11,7 +11,7 @@
   Hermes Terminal opens the real `hermes --tui` of the gateway this Desktop window is connected to.
   Local Hermes, or a remote dashboard you already signed into. Same PTY the web dashboard Chat tab uses.
 
-  <sub>POWERED BY <a href="https://github.com/NousResearch/hermes-agent">HERMES AGENT</a> &nbsp;·&nbsp; COMMUNITY PLUGIN &nbsp;·&nbsp; VERSION 0.0.3</sub>
+  <sub>POWERED BY <a href="https://github.com/NousResearch/hermes-agent">HERMES AGENT</a> &nbsp;·&nbsp; COMMUNITY PLUGIN &nbsp;·&nbsp; VERSION 0.0.5</sub>
 
   <br /><br />
 
@@ -253,4 +253,4 @@ the dependency lockfile. CI verifies them with
 `npx playwright install chromium` and `npm run test:browser`. The test uses the
 packaged terminal with external requests blocked and checks rendering, keyboard
 input, resizing, and disposal. Catalog packaging
-releases use `catalog-v0.0.4` and are not marked as the latest standalone release.
+releases use `catalog-v0.0.5` and are not marked as the latest standalone release.
